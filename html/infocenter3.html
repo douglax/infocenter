@@ -1,0 +1,85 @@
+<html>
+<head>
+<meta http-equiv="refresh" content="900">
+<script>
+
+function setFocus() {
+    var iframe = document.getElementById("calender");
+    iframe.contentWindow.focus();
+}
+
+
+</script>
+
+<style>
+table, th, td {
+    border: 0px solid black;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+}
+row {
+    display:block; 
+}
+cell {
+    display:inline-block; 
+}
+
+</style>
+
+</head>
+
+<body onLoad="setFocus()">
+
+
+
+<!-- Upper section - Calendar, Radar and Traffic  -->
+
+<table width="1200">
+
+	<tr>
+		<td rowspan="2" width="800">
+
+<!-- Replace with your own calendar code  -->
+<iframe src="https://calendar.google.com/calendar/embed?title=........" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+
+		</td>
+		<td width=400" valign="center"> <img src="radar.jpg" alt="Local Radar" width="400" height="300">
+
+		</td>
+	</tr>
+	<tr>
+		<td><iframe src="http://192.168.1.10/traffic.html" height="300" width="400" scrolling="no" frameborder="0" border="0"></iframe></td>
+	</tr>
+</table>
+
+<p>
+
+<table width="1200">                                                                                                                                                  
+        <tr>                                                                                                                                                          
+                <td width="200" align="center"> 1 <img src="images/water.png" height="16" width="16"></td>                                                            
+                <td width="200" align="center"> 2 <img src="images/dog.png" height="16" width="16"></td>                                                              
+                <td width="200" align="center"> 3 <img src="images/dishes.png" height="16" width="16"></td>                                                           
+                <td width="200" align="center"> 4 <img src="images/shower.png" height="16" width="16"></td>
+		<td width="400" align="center"> <iframe src="http://free.timeanddate.com/clock/i62j77um/n65/fn12/fs20/tct/pct/ftb/bas4/bac00f/th2/ta1" frameborder="0"  height="31" allowTransparency="true"></iframe>
+ </td>
+        </tr>                                                                                                                                                         
+</table>            
+
+<!-- Weather and news feed section -->                                                                                                                                    
+                                                                                                                                                                      
+<table>                                                                                                                                                               
+        <tr>                                                                                                                                                          
+                <td width="600px">                                                                                                                                    
+                                                                                                                                                                      
+<iframe style="align:center"id="forecast_embed" type="text/html" frameborder="0" height="250px" width="600px" src="http://forecast.io/embed/#lat=28.684757&lon=-106.13
+4388&name=Chihuahua&units=ca"> </iframe>                                                               </td>                                                                                                                                                 
+                <td width="600px" align="center" top="center">                                                                                                        
+                      <iframe src="https://feed.mikle.com/widget/v2/16424/" height="191px" width="600px" class="fw-iframe" scrolling="no" frameborder="0"></iframe>                
+                </td>                                                                                                                                                 
+        </tr>                                                                                                                                                         
+</table>                                                                                                                                                 
+
+
+</body>
+</html>
