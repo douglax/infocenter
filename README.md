@@ -13,6 +13,7 @@ At this moment I have:
 * Time/Date
 
 Nice to have / wish list:
+* Personal photo feed from public service (Google, Flickr...)
 * Dolar/peso exchange rate graph
 * Days until Christmas
 
