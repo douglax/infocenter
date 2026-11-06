@@ -1,0 +1,12 @@
+services:
+  dashboard:
+    build: .
+    container_name: infocenter
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      TZ: America/Mexico_City
+    volumes:
+      - ./config.json:/config/config.json:ro
+      - ./config.local.json:/config/config.local.json:ro

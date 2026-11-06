@@ -1,0 +1,127 @@
+{
+  "title": "Home",
+  "theme": {
+    "accent": "#4cc9f0",
+    "background": "#0b0f14",
+    "scale": 1
+  },
+  "grid": {
+    "columns": 12,
+    "rows": 24,
+    "gap": 14
+  },
+  "widgets": [
+    {
+      "id": "clock",
+      "type": "clock",
+      "col": 1,
+      "row": 1,
+      "w": 4,
+      "h": 4,
+      "options": {
+        "hour12": true,
+        "showSeconds": false
+      }
+    },
+    {
+      "id": "weather",
+      "type": "weather",
+      "col": 5,
+      "row": 1,
+      "w": 4,
+      "h": 7,
+      "refresh": 600,
+      "options": {
+        "name": "My Town",
+        "lat": 40.7128,
+        "lon": -74.006,
+        "units": "imperial"
+      }
+    },
+    {
+      "id": "calendar",
+      "type": "embed",
+      "col": 9,
+      "row": 1,
+      "w": 4,
+      "h": 12,
+      "options": {
+        "url": "https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID",
+        "title": "Calendar",
+        "dark": true
+      }
+    },
+    {
+      "id": "photos",
+      "type": "photos",
+      "col": 1,
+      "row": 5,
+      "w": 4,
+      "h": 20,
+      "refresh": 3600,
+      "options": {
+        "albumUrl": "https://photos.app.goo.gl/YOUR_SHARED_ALBUM_ID",
+        "intervalSeconds": 45,
+        "shuffle": true,
+        "fit": "cover"
+      }
+    },
+    {
+      "id": "news",
+      "type": "news",
+      "col": 9,
+      "row": 13,
+      "w": 4,
+      "h": 12,
+      "refresh": 600,
+      "options": {
+        "layout": "slides",
+        "intervalSeconds": 60,
+        "limit": 10,
+        "feeds": [
+          {
+            "name": "BBC",
+            "url": "https://feeds.bbci.co.uk/news/rss.xml"
+          }
+        ]
+      }
+    },
+    {
+      "id": "sports",
+      "type": "sports",
+      "col": 1,
+      "row": 25,
+      "w": 12,
+      "h": 1,
+      "refresh": 60,
+      "options": {
+        "layout": "ticker",
+        "limit": 30,
+        "secondsPerGame": 6,
+        "leagues": [
+          {
+            "league": "football/nfl"
+          },
+          {
+            "league": "basketball/nba"
+          },
+          {
+            "league": "baseball/mlb"
+          }
+        ]
+      }
+    },
+    {
+      "id": "flightmap",
+      "type": "embed",
+      "col": 5,
+      "row": 8,
+      "w": 4,
+      "h": 17,
+      "options": {
+        "url": "https://www.airnavradar.com/?widget=1&z=7&lat=40.7128&lng=-74.0060&showLabels=true&showAirlineLogo=true&showFn=true",
+        "title": "Flight Map"
+      }
+    }
+  ]
+}

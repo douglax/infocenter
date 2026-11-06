@@ -1,0 +1,33 @@
+{
+  "widgets": {
+    "weather": {
+      "options": { "name": "My Town", "lat": 40.7128, "lon": -74.0060, "units": "imperial" }
+    },
+    "calendar": {
+      "options": {
+        "url": "https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID%40group.calendar.google.com&ctz=America%2FNew_York&mode=AGENDA&showTitle=0&showNav=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0"
+      }
+    },
+    "photos": {
+      "options": { "albumUrl": "https://photos.app.goo.gl/YOUR_SHARED_ALBUM_ID" }
+    },
+    "news": {
+      "options": {
+        "feeds": [ { "name": "My Feed", "url": "https://example.com/feed.xml" } ]
+      }
+    },
+    "sports": {
+      "options": {
+        "leagues": [
+          { "league": "football/nfl",   "teams": ["CHI", "NO"] },
+          { "league": "basketball/nba", "teams": ["SA", "HOU"] }
+        ]
+      }
+    },
+    "flightmap": {
+      "options": {
+        "url": "https://www.airnavradar.com/?widget=1&z=7&lat=40.7128&lng=-74.0060&showLabels=true&showAirlineLogo=true&showFn=true"
+      }
+    }
+  }
+}
