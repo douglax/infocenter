@@ -76,7 +76,7 @@ Config changes are read on each request; reload the page (or wait for the auto-r
 - **weather**: `name`, `lat`, `lon`, `units` (`metric` | `imperial`).
 - **news**: `feeds` (`[{ "name", "url" }]`), `limit`, `layout` (`list` | `slides`), `intervalSeconds` (slide rotation, default 60).
 - **photos**: `albumUrl` (a "share by link" album), `intervalSeconds`, `shuffle`, `fit` (`cover` | `contain`). The album must stay shared by link. Google offers no open API for this, so the server reads the public share page, which could break if Google changes it.
-- **sports**: `leagues` (`[{ "league": "football/nfl", "teams": ["DAL"] }]`; league paths follow ESPN, e.g. `basketball/nba`, `soccer/mex.1`; `teams` are ESPN abbreviations and optional), `limit`, `layout` (`list` | `ticker`), `secondsPerGame` (ticker speed).
+- **sports**: `leagues` (`[{ "league": "football/nfl", "teams": ["DAL"] }]`; league paths follow ESPN such as `basketball/nba`, `football/college-football`, `soccer/mex.1`, as well as `baseball/lmb` for the Mexican Baseball League via MLB Stats API; `teams` are abbreviations and optional), `limit`, `layout` (`list` | `ticker`), `secondsPerGame` (ticker speed).
 - **calendar**: `calendars` (`[{ "name", "url", "color" }]` of iCal feed URLs, such as the "secret address in iCal format" in Google Calendar), `days`, `limit`.
 - **stocks**: `symbols` (Yahoo symbols such as `AAPL`, `^GSPC`, `BTC-USD`).
 - **flights**: `lat`, `lon`, `radiusNm`, `limit`, `showGround`.

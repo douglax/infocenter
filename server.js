@@ -158,12 +158,92 @@ async function calendar(o) {
   return { events: events.slice(0, o.limit || 20) };
 }
 
-// ---------- Sports (ESPN public scoreboard JSON) ----------
+// ---------- Sports (ESPN public scoreboard JSON + MLB Stats API for Mexican League) ----------
+const MLB_LEAGUES = {
+  'baseball/lmb': 125,
+  'lmb': 125,
+  'mexican-league': 125,
+  'baseball/mexican-league': 125,
+  'baseball/mex.1': 125,
+  'baseball/lmp': 132,
+  'lmp': 132,
+};
+
 async function sports(o) {
   const games = [];
   await Promise.allSettled((o.leagues || []).map(async (lg) => {
     const league = typeof lg === 'string' ? lg : lg.league; // e.g. "football/nfl"
     const teams = (typeof lg === 'object' && lg.teams || []).map((t) => t.toLowerCase());
+
+    const mlbLeagueId = MLB_LEAGUES[league.toLowerCase()];
+    if (mlbLeagueId) {
+      const leagueAbbr = mlbLeagueId === 132 ? 'LMP' : 'LMB';
+      const now = Date.now();
+      const start = new Date(now - 864e5).toISOString().slice(0, 10);
+      const end = new Date(now + 864e5).toISOString().slice(0, 10);
+
+      const parseGame = (g) => {
+        const homeT = g.teams?.home?.team || {};
+        const awayT = g.teams?.away?.team || {};
+        const match = (t) => {
+          if (!teams.length) return true;
+          const a = (t.abbreviation || '').toLowerCase();
+          const n = (t.name || '').toLowerCase();
+          const c = (t.clubName || '').toLowerCase();
+          return teams.some((f) => f === a || n.includes(f) || c.includes(f));
+        };
+        if (!match(homeT) && !match(awayT)) return null;
+        const stateMap = { Live: 'in', Final: 'post', Preview: 'pre' };
+        const state = stateMap[g.status?.abstractGameState] || 'post';
+        const inDetail = g.linescore?.inningHalf && g.linescore?.currentInning
+          ? `${g.linescore.inningHalf.slice(0, 3)} ${g.linescore.currentInning}`
+          : g.status?.detailedState;
+        return {
+          league: leagueAbbr,
+          date: g.gameDate,
+          state,
+          status: state === 'in' ? inDetail : (g.status?.detailedState || 'Final'),
+          home: {
+            name: homeT.shortName || homeT.name,
+            abbr: homeT.abbreviation || 'HOME',
+            score: g.teams?.home?.score ?? '',
+            logo: `https://www.mlbstatic.com/team-logos/${homeT.id}.svg`,
+            winner: g.teams?.home?.isWinner,
+          },
+          away: {
+            name: awayT.shortName || awayT.name,
+            abbr: awayT.abbreviation || 'AWAY',
+            score: g.teams?.away?.score ?? '',
+            logo: `https://www.mlbstatic.com/team-logos/${awayT.id}.svg`,
+            winner: g.teams?.away?.isWinner,
+          },
+        };
+      };
+
+      try {
+        const d = await get(`https://statsapi.mlb.com/api/v1/schedule?sportId=23&leagueId=${mlbLeagueId}&startDate=${start}&endDate=${end}&hydrate=team,linescore`);
+        let parsed = (d.dates || []).flatMap((dt) => (dt.games || []).map(parseGame)).filter(Boolean);
+
+        if (!parsed.length) {
+          const year = new Date().getFullYear();
+          for (const yr of [year, year - 1]) {
+            try {
+              const sd = await get(`https://statsapi.mlb.com/api/v1/schedule?sportId=23&leagueId=${mlbLeagueId}&season=${yr}&hydrate=team,linescore`);
+              const matched = (sd.dates || []).flatMap((dt) => (dt.games || []).map(parseGame)).filter(Boolean);
+              if (matched.length) {
+                parsed = matched.slice(-3);
+                break;
+              }
+            } catch (_) {}
+          }
+        }
+        games.push(...parsed);
+      } catch (err) {
+        console.error('MLB Stats error:', err.message);
+      }
+      return;
+    }
+
     const d = await get(`https://site.api.espn.com/apis/site/v2/sports/${league}/scoreboard`);
     for (const ev of d.events || []) {
       const comp = ev.competitions?.[0]; if (!comp) continue;
